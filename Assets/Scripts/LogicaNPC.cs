@@ -7,8 +7,7 @@ using TMPro;
 public class LogicaNPC : MonoBehaviour
 {
 
-    //public GameObject simboloMision; 
-    public Animation jugador; 
+    public Animation jugador;
     public GameObject panelNPC; //interaccion
     public GameObject panelNPC2; //texto
     public GameObject panelNPCMision; //texto cuando aceptas
@@ -25,25 +24,26 @@ public class LogicaNPC : MonoBehaviour
         numObjetivos = objetivos.Length;
         textoMision.text = "Recoge las muestras" + "   " + numObjetivos;
         jugador = GameObject.FindGameObjectWithTag("Player").GetComponent<Animation>();
-        //simboloMision.SetActive(true);
         panelNPC.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Z) && aceptarMision == false)
+        if(Input.GetKeyDown(KeyCode.Z) && aceptarMision == false && jugadorCerca==true)
         {
             Vector3 posicionJugador = new Vector3(transform.position.x, jugador.gameObject.transform.position.y, transform.position.z);
             jugador.gameObject.transform.LookAt(posicionJugador);
 
             jugador.animator.SetFloat("vertical", 0);
             jugador.animator.SetFloat("horizontal", 0);
-            jugador.enabled = false;
+            jugador.enabled = true;
             panelNPC.SetActive(false); //Panel pulsar Z
             panelNPC2.SetActive(true);
         }
     }
+
+ 
 
     private void OnTriggerEnter(Collider other)
     {
@@ -72,7 +72,7 @@ public class LogicaNPC : MonoBehaviour
     {
         jugador.enabled = true;
         panelNPC2.SetActive(false);
-        panelNPC.SetActive(true);
+        panelNPC.SetActive(false);
     }
 
     public void OpcionSi()
@@ -84,7 +84,6 @@ public class LogicaNPC : MonoBehaviour
             objetivos[i].SetActive(true); //activa las muestras
         }
         jugadorCerca = false;
-        //simboloMision.SetActive(false);
         panelNPC.SetActive(false);
         panelNPC2.SetActive(false);
         panelNPCMision.SetActive(true);

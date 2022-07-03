@@ -9,7 +9,7 @@ public class ThirdPersonCamera : MonoBehaviour
     public Vector3 offset; //distancia entre camara y jugador
     private Transform target; //Jugador
     [Range (0, 1)]public float lerpValue;
-    public float sensibilidad;
+    private float sensibilidad = 0;
 
     void Start()
     {

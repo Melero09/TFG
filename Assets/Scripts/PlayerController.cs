@@ -19,6 +19,10 @@ public class PlayerController : MonoBehaviour
     private Vector3 camForward;
     private Vector3 camRight;
 
+    public AudioSource correr;
+    private bool HActivo;
+    private bool VActivo;
+
     void Start()
     {
         player = GetComponent<CharacterController>();   
@@ -42,6 +46,36 @@ public class PlayerController : MonoBehaviour
 
         player.Move(playerInput * playerSpeed * Time.deltaTime);
 
+        if (Input.GetButtonDown("Horizontal"))
+        {
+            HActivo = true;
+            correr.Play();
+        }
+
+        if (Input.GetButtonDown("Vertical"))
+        {
+            VActivo = true;
+            correr.Play();
+        }
+
+        if (Input.GetButtonUp("Horizontal"))
+        {
+            HActivo = false;
+            if (VActivo == false)
+            {
+                correr.Pause();
+            }
+            
+        }
+
+        if (Input.GetButtonUp("Vertical"))
+        {
+            VActivo = false;
+            if (HActivo == false)
+            {
+                correr.Pause();
+            }
+        }
     }
 
     /*void camDirection()
